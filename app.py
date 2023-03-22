@@ -30,8 +30,6 @@ def get_data_list():
         # Filter based on query parameters
         match = True
         for param, value in request.args.items():
-            if param == 'active_only' or param == 'inactive_only':
-                continue
             # Filter properties that are lists
             if isinstance(provider[param], list):
                 if value not in provider[param]:
@@ -48,7 +46,8 @@ def get_data_list():
             result_counts[provider['id']] += 1
 
     # Sort results by number of times each provider has been returned and rating
-    result_data = sorted(result_data, key=lambda x: (-result_counts[x['id']], -x['rating']))
+    result_data = sorted(result_data, key=lambda sorted_provider: (
+        -sorted_provider['rating'], -result_counts[sorted_provider['id']]))
 
     return jsonify(result_data)
 
