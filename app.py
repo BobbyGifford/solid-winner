@@ -35,7 +35,7 @@ def get_data_list():
                 if value not in provider[param]:
                     match = False
                     break
-            # Filter properties that are string
+            # Filter properties that are string/basic types
             else:
                 if str(provider[param]).lower() != str(value).lower():
                     match = False
